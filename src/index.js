@@ -44,8 +44,13 @@ function makeMTProto(envMethods) {
 
   return class {
     constructor(options) {
-      const { storageOptions } = options;
+      const { storageOptions, token } = options;
 
+      if (!token) {
+        throw new Error('Token is required');
+      }
+
+      this.token = token;
       this.dcList = !!options.test ? TEST_DC_LIST : PRODUCTION_DC_LIST;
 
       this.envMethods = envMethods;
@@ -86,6 +91,7 @@ function makeMTProto(envMethods) {
         dc,
         context: this,
         transport,
+        token: this.token,
       });
 
       this.rpcs.set(dcId, rpc);

@@ -8,11 +8,12 @@ const baseDebug = require('../utils/common/base-debug');
 require('../crypto/pq');
 
 class RPC {
-  constructor({ dc, context, transport }) {
+  constructor({ dc, context, transport, token }) {
     this.dc = dc;
     this.crypto = context.crypto;
     this.context = context;
     this.transport = transport;
+    this.token = token;
 
     this.debug = baseDebug.extend(`rpc-${this.dc.id}`);
     this.debug('init');
@@ -41,8 +42,8 @@ class RPC {
     const requestBytes = serializer.getBytes();
 
     const wrapperSerializer = new Serializer(builderMap.eitaaObject, {
-      token: 'PUT YOUR TOKEN HERE', // TODO
-      imei: "mtpasdxxggzzj__web", // Make it random
+      token: this.token,
+      imei: "mtpasdsxfg1kj__web", // Make it random
       packed_data: requestBytes,
       layer: 133,
       flags: 32

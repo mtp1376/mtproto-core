@@ -2,11 +2,12 @@ const MTProto = require('../envs/node/index.js');
 const path = require("path");
 const builderMap = require("../src/tl/builder");
 
-
+// Replace YOUR_TOKEN_HERE with your actual token
 const mtproto = new MTProto({
   storageOptions: {
     path: path.resolve(__dirname, './data/1.json'),
   },
+  token: 'YOUR_TOKEN_HERE', // Required: Add your token here
 });
 (async () => {
     // const codeResult = await mtproto.call(builderMap["auth.sendCode"], {
